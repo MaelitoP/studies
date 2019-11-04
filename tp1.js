@@ -115,56 +115,46 @@ function flou (imageOriginale, taille)
     return imageOriginale;
 }
 
-function detectionContours(imageOriginale)
-{
-    // Define black & white to set the same value for r, g, b
-    noirEtBlanc(imageOriginale);
+// Fonction qui dessine les contours
+function detectionContours(imageOriginale) {
+    // Mettre l'image en noir et blanc afin d'avoir la meme valeur pour les pixels r, g, b
+    var image = noirEtBlanc(imageOriginale),
+        imageRetourne = imageOriginale;
 
-    let verticalWeighting = [[-1, -2, -1],
-                                [0, 0, 0],
-                                [+1, +2, +1]],
-        horizontalWeighting = [[-1, 0, +1],
-                                [-2, 0, +2],
-                                [-1, 0, +1]];
+    // Ponderation verticale et horizontale des pixels de la matrice 3 x 3
+    let ponderation_verticale = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]],
+        ponderation_horizontale = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]];
 
-    for (var y = 0; y < canvas.height; y++)
-    {
-        for (var x = 0; x < canvas.width; x++)
-        {
-            var variaX = 0;
-            var variaY = 0;
+    for (var y = 0; y < canvas.height; y++) {	// Iterer tous les pixels
+        for (var x = 0; x < canvas.width; x++) {
+            var variationX = 0, variationY = 0,
+                bound = 3;
 
-            var indexX = x - 1,
-                indexY = y - 1,
-                w = 0, // x of matrix 3 x 3
-                z = 0; // y of matrix 3 x 3
-
-            for(var a = indexY; a < (indexY + 3); a++)
-            {
-                for(var b = indexX; b < (indexX + 3); b++)
-                {
-                    if ((b > 0) && (b < canvas.width) && (a > 0) && (a < canvas.height)) // If it's out of bounds, do nothing
-                    {
-                        var pixelColor = imageOriginale[a][b].r; // Choose r but it's still the same for g, b
-
-                        variaX += (horizontalWeighting[z][w] * pixelColor);
-                        variaY += (verticalWeighting[z][w] * pixelColor);
+            var verticale = 0;
+            for(var a = y; a < (y + bound); a++) {	// Iterer les pixels de la matrice 3 x 3
+                var horizontale = 0;
+                for(var b = x; b < (x + bound); b++) {
+                    if (a >= 0 && a < canvas.height && b >= 0 && b < canvas.width) {
+                        var couleur = image[a][b].r; // Choix du canal rouge
+                        variationX += (ponderation_horizontale[verticale][horizontale] * couleur);
+                        variationY += (ponderation_verticale[verticale][horizontale] * couleur);
                     }
-                    w++;
+                    horizontale++;
                 }
-                z++;
+                verticale++;
             }
+            // Intensite des contours
+            var intensiteContour = Math.floor(Math.max(Math.abs(variationX), Math.abs(variationY)));
 
-            var contourIntensity = Math.max(Math.abs(variaX), Math.abs(variaY));
+            if (intensiteContour > 255)
+                intensiteContour = 255;
 
-            imageOriginale[y][x].r = contourIntensity;
-            imageOriginale[y][x].g = contourIntensity;
-            imageOriginale[y][x].b = contourIntensity;
-
+            imageRetourne[y][x].r = intensiteContour;
+            imageRetourne[y][x].g = intensiteContour;
+            imageRetourne[y][x].b = intensiteContour;
         }
     }
-
-    return imageOriginale;
+    return imageRetourne;
 }
 
 function tests()
