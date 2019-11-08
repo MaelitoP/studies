@@ -60,7 +60,6 @@ var cutSentence = function (text)
 */
 var specialChar = function (text)
 {
-    var list = ",'.;:!-?"; // Special characters checked
     var result = [];
     
     for(var v = 0; v < text.length; v++)
