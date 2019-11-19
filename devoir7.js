@@ -1,10 +1,28 @@
-let fs = require("fs");
+/*
+* Maël LE PETIT - (20143452)
+* For IFT1015
+* A program that reads a text file and returns a justified version of it.
+*   - It cuts the rows so that they do not exceed the desired number of columns.
+*   - And inserts additional spaces so that each line ends in the same column.
+*/
 
+let fs = require("fs"); // from node.js
+
+/**
+ * Get the content of a file
+ * @param path
+ * @returns {string}
+ */
 let readFile = function (path)
 {
     return fs.readFileSync(path).toString();
 };
 
+/**
+ * Write in file
+ * @param path
+ * @param text
+ */
 let writeFile = function (path, text)
 {
     fs.writeFileSync(path, text);
@@ -15,7 +33,7 @@ let writeFile = function (path, text)
  * @return boolean
  * @param char
  */
-var isLetter = function (char)
+let isLetter = function (char)
 {
     return (char >= "a" && char <= "z") ||
         (char >= "A" && char <= "Z");
@@ -33,7 +51,7 @@ let isSpecialChar = function (char)
 
 /**
  * Splits a sentence and returns an array
- * of these words. (& special character)
+ * of these words.
  * @return array
  * @param text
  */
@@ -57,6 +75,12 @@ let cutSentence = function (text)
     return result;
 };
 
+/**
+ * Get the number of words to count before cutting the sentence.
+ * @param array
+ * @param max
+ * @returns {number}
+ */
 let getLinebreakPos = function (array, max)
 {
     let line = "";
@@ -76,6 +100,11 @@ let getLinebreakPos = function (array, max)
     return word;
 };
 
+/**
+ * Check if it's a natural number (O to Infinity)
+ * @param n
+ * @returns {boolean}
+ */
 let isNaturalNumber = function (n)
 {
     n = n.toString(); // Force the value in case it is not
@@ -84,49 +113,55 @@ let isNaturalNumber = function (n)
     return !isNaN(n1) && n2 === n1 && n1.toString() === n;
 };
 
-let fillSentence = function (ligne, nbColonnes)
+/**
+ * Fill in the sentence by spaces to the last column
+ *
+ * @param line
+ * @param nbrRows
+ * @returns {string} new line
+ */
+let fillSentence = function (line, nbrRows)
 {
-    var nbEspaces = ligne.split(" ").length - 1;
-    var ligne2 = "";
-    var max = (nbColonnes - ligne.length);
-    var espace = " ";
-    var totalFill = new Array(max + 1).join(espace);
-    var espFill = totalFill.length/nbEspaces;
-    var espacement;
-    var espacement2;
+    let nbrSpaces = line.split(" ").length - 1;
+    let max = (nbrRows - line.length);
+    let nbrDecreasingSpace = nbrSpaces;
+    let line2 = "";
+    let space = " ";
+    let totalFill = new Array(max + 1).join(space);
+    let escFill = totalFill.length / nbrSpaces;
+    let gap1;
+    let gap2;
+    let char = "";
 
-
-    if(espFill == Math.floor(espFill))
+    if(escFill === Math.floor(escFill))
     {
-        espacement = new Array(espFill + 1).join(espace);
-        for(var x = 0; x < ligne.length; x++)
+        gap1 = new Array(escFill + 1).join(space);
+        for(let x = 0; x < line.length; x++)
         {
-            var caractere = ligne.charAt(x);
-            if(caractere == " "){
-                caractere += espacement;
-            }
-            ligne2 += caractere;
+            char = line.charAt(x);
+            if(char === " ")
+                char += gap1;
+            line2 += char;
         }
     }
     else {
-        espacement = new Array(Math.ceil(espFill) + 1).join(espace);
-        espacement2 = new Array(Math.floor(espFill) + 1).join(espace);
-        for(var x = 0; x < ligne.length; x++)
+        gap1 = new Array(Math.ceil(escFill) + 1).join(space);
+        gap2 = new Array(Math.floor(escFill) + 1).join(space);
+
+        for(let y = 0; y < line.length; y++)
         {
-            var caractere = ligne.charAt(x);
-            if(caractere == " " && nbEspacesQuiDiminue > 1)
+            char = line.charAt(y);
+            if(char === " " && nbrDecreasingSpace > 1)
             {
-                caractere += espacement;
-                nbEspacesQuiDiminue = nbEspacesQuiDiminue - 1;
+                char += gap1;
+                nbrDecreasingSpace = nbrDecreasingSpace - 1;
             }
-            else if(caractere == " ")
-            {
-                caractere += espacement2;
-            }
-            ligne2 += caractere;
+            else if(char === " ")
+                char += gap2;
+            line2 += char;
         }
     }
-    return ligne2;
+    return line2;
 };
 
 /**
@@ -167,7 +202,7 @@ let adjustWordPerLine = function (textArray, lineArray)
  *
  * @param sentence
  * @param max
- * @return array new sentence
+ * @return {array} new sentence
  */
 let getProvedText = function (sentence, max)
 {
@@ -198,7 +233,14 @@ let getProvedText = function (sentence, max)
     return text;
 };
 
-
+/**
+ * Main function
+ *
+ * @param inputFile
+ * @param outputFile
+ * @param maxRows
+ * @return {string}
+ */
 let justifierFichier  = function (inputFile, outputFile, maxRows)
 {
     let text = readFile(inputFile);
@@ -216,13 +258,35 @@ let justifierFichier  = function (inputFile, outputFile, maxRows)
         newTextString += newTextArr[z] + "\n";
 
     writeFile(outputFile, newTextString);
-
-    print(readFile(outputFile));
+    return readFile(outputFile);
 };
 
+/**
+ * Simplifies writing in the console
+ * @param x
+ */
 let print = function (x)
 {
     console.log(x);
 };
 
-justifierFichier("test.txt", "test1.txt", 15);
+/**
+ * Function who checks the limits of the program.
+ */
+let tests = function ()
+{
+    //TODO tests unitaires
+};
+tests();
+
+/* TEST
+    test.txt :
+        the quick brown fox jumps over the lazy dog
+
+    proveFile.js :
+        print(justifierFichier("test.txt", "test1.txt", 15));
+        console:
+            the quick brown
+            fox  jumps over
+            the   lazy  dog
+*/
