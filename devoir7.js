@@ -30,7 +30,7 @@ let writeFile = function (path, text)
 
 /**
  * Function to know if it's an alphabet letter
- * @return boolean
+ * @return {boolean}
  * @param char
  */
 let isLetter = function (char)
@@ -41,7 +41,7 @@ let isLetter = function (char)
 
 /**
  * Function to know if it's a special characters
- * @return boolean
+ * @return {boolean}
  * @param char
  */
 let isSpecialChar = function (char)
@@ -52,7 +52,7 @@ let isSpecialChar = function (char)
 /**
  * Splits a sentence and returns an array
  * of these words.
- * @return array
+ * @return {array}
  * @param text
  */
 let cutSentence = function (text)
@@ -170,7 +170,7 @@ let fillSentence = function (line, nbrRows)
  *
  * @param textArray
  * @param lineArray
- * @returns array of text line
+ * @returns {array} of text line
  */
 let adjustWordPerLine = function (textArray, lineArray)
 {
