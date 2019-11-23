@@ -18,20 +18,6 @@ function print (text)
 }
 
 /**
- * Create a new array by instructions setup in
- * the function.
- * @param tab
- * @param fn
- * @returns {Array}
- */
-function map (tab, fn)
-{
-    let result = [];
-    result.forEach(function (x) { result.push(fn(tab[x])); });
-    return result;
-}
-
-/**
  * Created the same 2D table as input, replacing
  * the values by the size (number of characters).
  * @param array
@@ -72,7 +58,7 @@ function getMaxElementsSizeOf2DArray (array)
 }
 
 /**
- * Fill in the sentence by spaces to the last column;
+ * Fill in the word by spaces to the next column.
  * @param word
  * @param nbrRows
  * @returns {string} new line
