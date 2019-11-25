@@ -46,14 +46,18 @@ function getLengthValue2DArray (array)
 function getMaxElementsSizeOf2DArray (array)
 {
     let maxValues = [];
+    let c = 0;
     array.forEach(element => {  maxValues = element.map(function (x) { return 0; }); });
     array.forEach(element => {
         element.forEach(function (x) {
-            if(x > maxValues[element.indexOf(x)])
-                maxValues[element.indexOf(x)] = x;
-        })
+            if (x < element.length)
+            {
+                if (x > maxValues[c])
+                    maxValues[c] = x;
+                c++;
+            }
+        });
     });
-
     return maxValues;
 }
 
