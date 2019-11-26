@@ -18,27 +18,6 @@ function print (text)
 }
 
 /**
- * Created the same 2D table as input, replacing
- * the values by the size (number of characters).
- * @param array
- * @returns {Array}
- */
-function getLengthValue2DArray (array)
-{
-    let sizeArray = [];
-    array.forEach(element => {
-        let arr = element.map(function (x) {
-            if (typeof x === 'string' || x instanceof String)
-                return x.length;
-            else
-                return Math.ceil(Math.log10(x + 1));
-        });
-        sizeArray.push(arr);
-    });
-    return sizeArray;
-}
-
-/**
  * Get a table with the highest value of each column.
  * @param array
  * @returns {Array}
@@ -50,13 +29,19 @@ function getMaxElementsSizeOf2DArray (array)
     array.forEach(element => {  maxValues = element.map(function (x) { return 0; }); });
     array.forEach(element => {
         element.forEach(function (x) {
-            if (x < element.length)
+            if (c < element.length)
             {
-                if (x > maxValues[c])
-                    maxValues[c] = x;
+                if (typeof x === 'string' || x instanceof String)
+                {
+                    if (x.length > maxValues[c])
+                        maxValues[c] = x.length;
+                }
+                else if (Math.ceil(Math.log10(x + 1)) > maxValues[c])
+                    maxValues[c] = Math.ceil(Math.log10(x + 1));
                 c++;
             }
         });
+        c = 0;
     });
     return maxValues;
 }
@@ -73,21 +58,24 @@ function fillWord (word, nbrRows)
     let space = " ";
 
     if(word.length === nbrRows)
+    {
         return word;
+    }
     else
+    {
         return Array(max + 1).join(space) + word;
+    }
 }
 
 /**
- * Get all rows in a table
+ * Get all rows in a table for 2D array
  * @param array
  * @returns {Array}
  */
 function make (array)
 {
     let lines = [];
-    let lengthOfContentArr = getLengthValue2DArray(array);
-    let maxValues = getMaxElementsSizeOf2DArray(lengthOfContentArr);
+    let maxValues = getMaxElementsSizeOf2DArray(array);
 
     // Write main line
     let mainLine = "+";
@@ -102,9 +90,13 @@ function make (array)
         maxValues.forEach(nbrRows => {
             let value = x[maxValues.indexOf(nbrRows)];
             if (typeof value === 'string' || value instanceof String)
+            {
                 line += fillWord(value, nbrRows) + "|";
+            }
             else
+            {
                 line += fillWord(value.toString(), nbrRows) + "|";
+            }
         });
         lines.push(line);
         lines.push(mainLine)
@@ -127,12 +119,22 @@ function grilleMat (array2D)
     stringArray.forEach(lines => {
         string += lines + "\n";
     });
-
     return string;
 }
 
-let i = [["oranges",5],["kiwis",1000]];
-print(grilleMat(i));
+function testGrilleMat ()
+{
+    console.assert(JSON.stringify(getMaxElementsSizeOf2DArray([["oranges", 5], ["kiwis", 1000]]) === JSON.stringify([7, 4])));
+    console.assert(JSON.stringify(getMaxElementsSizeOf2DArray([[0, 5], [0, 1000], [1000, 1000], ["morty", 1000]]) === JSON.stringify([5, 4])));
+
+    console.assert(fillWord("chicken", 7) === "chicken");
+    console.assert(fillWord("", 7) === "       ");
+    console.assert(fillWord("89", 3) === " 89");
+
+    console.assert(JSON.stringify(grilleMat([["oranges", 5], ["kiwis", 1000]]) === JSON.stringify("+-------+----+\n|oranges|   5|\n+-------+----+\n|  kiwis|1000|\n+-------+----+")));
+}
+
+testGrilleMat();
 
 /*
 * print(grilleMat([["oranges",5],["kiwis",1000]]);
@@ -143,5 +145,4 @@ print(grilleMat(i));
 *   +-------+----+
 *   |  kiwis|1000|
 *   +-------+----+
-*
  */
