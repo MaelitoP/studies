@@ -1,0 +1,34 @@
+<!--
+* File: index.html
+* @author Maël LE PETIT (IFT1015)
+* @version  1.0
+*
+* This program takes the user's password as input. Then, he checks
+* if the password meets certain safety criteria before requesting
+* a password confirmation.
+-->
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mot de passe</title>
+    </head>
+
+    <body>
+        <h1>Mot de passe</h1>
+        <a>Veuillez entrer un mot de passe:<br />
+            <input type="password" id="mdp" placeholder="Mot de passe" /> <!-- Password entry -->
+        </a> <br />
+        <a>Entrez-le une deuxième fois pour confirmer:<br />
+            <input type="password" id="confirmation" placeholder="Confirmation du mot de passe" /> <!-- Confirmation entry -->
+        </a>
+
+        <p id="message"></p> <!-- Paragraph for sending information text -->
+        <p id="soumettre">
+            <input onclick="eventClick();" type="button" value="Soumettre" /> <!-- Check password by validation script -->
+        </p>
+
+        <!-- Import the validation script -->
+        <script src="validation.js"></script>
+    </body>
+</html>
