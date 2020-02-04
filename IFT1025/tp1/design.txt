@@ -13,7 +13,7 @@ Classe Shape:
                 private  char[][] shape; // Tableau de taille (xLength x yLength)
                 public static List<Shape> list = new ArrayList<Shape>(); // Enregistre toute les formes créées
 
-    Méthode:    public void make();
+    Méthode:    public void add(); // Ajoute la forme du le dessin
 
 Classe SRectangle extends Shape
 Classe SSquare extends Shape
