@@ -1,0 +1,43 @@
+Classe Main:
+    Variables:  public static Draw myDraw;
+
+    Méthodes:   public static void main(String[] args); // Permet de lire les entrées dans la console (Scanner)
+                public static void initCommand(String[] args); // Initialise toutes les commandes
+
+=================
+    LES FORMES
+=================
+
+Classe Shape:
+    Variables:  private int x0, y0, xLength, yLength; // Taille de la forme
+                private  char[][] shape; // Tableau de taille (xLength x yLength)
+                public static List<Shape> list = new ArrayList<Shape>(); // Enregistre toute les formes créées
+
+    Méthode:    public void draw();
+
+Classe SRectangle extends Shape
+Classe SSquare extends Shape
+Classe SLine extends Shape
+Classe SCircle extends Shape
+Classe SChar extends Shape
+Classe SText extends Shape
+
+=================
+     DESSIN
+=================
+
+Classe Draw:
+    Variables:  private int x, y; // Taille de notre dessin
+                private char c = '#';
+                private Char[][] myDraw; // Tableau de taille (X x Y)
+
+    Méthodes:   public void init(int x, int y); // Initialise la surface du dessin
+
+                public void add(Shape s); // Ajouter une forme sur la surface du dessin
+                public void remove(Shape s); // Supprime une forme sur le dessin
+                public void setChar(Char c); // Modifier le charactère du dessin
+
+                public void brasser();
+                public void renverser();
+
+                public void print(); // Affiche le dessin dans la console
