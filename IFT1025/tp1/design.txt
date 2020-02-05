@@ -14,7 +14,7 @@ Classe Shape:
                 private char[][] shape; // Tableau de taille (xLength x yLength)
 
     Méthode:    public void add(); // Ajouter la forme au dessin
-                public void init(); // Initialiser la forme (dimension)
+                public void init(int x0, int y0, int xLength, int yLength); // Initialiser la forme (dimension)
                 public void setChar(char c);
                 public char getChar();
 
