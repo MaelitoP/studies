@@ -10,10 +10,13 @@ Classe Main:
 
 Classe Shape:
     Variables:  private int x0, y0, xLength, yLength; // Taille de la forme
-                private  char[][] shape; // Tableau de taille (xLength x yLength)
-                public static List<Shape> list = new ArrayList<Shape>(); // Enregistre toute les formes créées
+                private char c = '#'; //  Caractère du dessin
+                private char[][] shape; // Tableau de taille (xLength x yLength)
 
-    Méthode:    public void add(); // Ajoute la forme du le dessin
+    Méthode:    public void add(); // Ajouter la forme au dessin
+                public void init(); // Initialiser la forme (dimension)
+                public void setChar(char c);
+                public char getChar();
 
 Classe SRectangle extends Shape
 Classe SSquare extends Shape
@@ -28,8 +31,8 @@ Classe SText extends Shape
 
 Classe Draw:
     Variables:  private int x, y; // Taille de notre dessin
-                private char c = '#';
                 private Char[][] myDraw; // Tableau de taille (X x Y)
+                public static List<Shape> list = new ArrayList<Shape>(); // Enregistre toute les formes créées
 
     Méthodes:   public void init(int x, int y); // Initialise la surface du dessin
 
