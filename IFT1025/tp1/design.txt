@@ -10,17 +10,15 @@ Classe Main:
 
 Classe Shape:
     Variables:  private int x0, y0, xLength, yLength; // Taille de la forme
-                private char c = '#'; //  Caractère du dessin
-******          /* faut pas juste initialiser le char? pcq genre on le change anyways?*/
+                private char c; //  Caractère du dessin
                 private char[][] shape; // Tableau de taille (xLength x yLength)
 
     Méthode:    public void add(); // Ajouter la forme au dessin
                 public void init(int x0, int y0, int xLength, int yLength); // Initialiser la forme (dimension)
+                
                 public void setChar(char c);
-******          /* faut pas que ce soit "car" le nom? */
                 public char getChar();
 
-******          /* est-ce qu'on rajoute les attributs et methodes? */
 Classe SRectangle extends Shape
 Classe SSquare extends Shape
 Classe SLine extends Shape
