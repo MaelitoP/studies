@@ -40,7 +40,6 @@ Classe Draw:
 
                 public void add(Shape s); // Ajouter une forme sur la surface du dessin
                 public void remove(Shape s); // Supprime une forme sur le dessin
-                public void setChar(Char c); // Modifier le charactère du dessin
 
                 public void brasser();
                 public void renverser();
