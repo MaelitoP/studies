@@ -13,11 +13,17 @@ Classe Shape:
                 private char c; //  Caractère du dessin
                 private char[][] shape; // Tableau de taille (xLength x yLength)
 
-    Méthode:    public void add(); // Ajouter la forme au dessin
+    Méthode:    public Shape(); // Constructeur
+                public void add(); // Ajouter la forme au dessin
                 public void init(int x0, int y0, int xLength, int yLength); // Initialiser la forme (dimension)
                 
+                // GETTER & SETTER
                 public void setChar(char c);
                 public char getChar();
+                public int getX0();
+                public int getY0();
+                public int getXLength();
+                public int getYLength();
 
 Classe SRectangle extends Shape
 Classe SSquare extends Shape
@@ -36,12 +42,9 @@ Classe Draw:
                 private Char[][] myDraw; // Tableau de taille (X x Y)
                 public static List<Shape> list = new ArrayList<Shape>(); // Enregistre toute les formes créées
 
-    Méthodes:   public void init(int x, int y); // Initialise la surface du dessin
-
+    Méthodes:   public Draw(int x, int y); // Constructeur
                 public void add(Shape s); // Ajouter une forme sur la surface du dessin
                 public void remove(Shape s); // Supprime une forme sur le dessin
-
                 public void brasser();
                 public void renverser();
-
                 public void print(); // Affiche le dessin dans la console
