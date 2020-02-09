@@ -1,3 +1,8 @@
+/**
+*   Author: Maël LE PETIT 
+*           Alex BUSSING
+*/
+
 Classe Main:
     Variables:  public static Draw myDraw;
 
