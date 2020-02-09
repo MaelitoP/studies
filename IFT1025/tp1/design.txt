@@ -4,23 +4,22 @@
 */
 
 Classe Main:
-    Variables:  public static Draw myDraw;
-
-    Méthodes:   public static void main(String[] args); // Permet de lire les entrées dans la console (Scanner)
-                public static void initCommand(String[] args); // Initialise toutes les commandes
+    Variables:  public static Draw myDraw : Notre objet dessin initialisé lors de la commande 'init'
+    Méthodes:   public static void main(String[] args) : Permet de lire les entrées dans la console (Scanner)
+                public static void initCommand(String[] args) : Initialise toutes les commandes pour dessiner
 
 =================
     LES FORMES
 =================
 
 Classe Shape:
-    Variables:  private int x0, y0, xLength, yLength; // Taille de la forme
-                private char c; //  Caractère du dessin
-                private char[][] shape; // Tableau de taille (xLength x yLength)
+    Variables:  private int x0, y0, xLength, yLength : Variable de notre forme
+                private char c : Caractère de la forme
+                private char[][] shape : Tableau de taille (xLength x yLength) qui contient le dessin
 
-    Méthode:    public Shape(); // Constructeur
-                public void add(); // Ajouter la forme au dessin
-                public void init(int x0, int y0, int xLength, int yLength); // Initialiser la forme (dimension)
+    Méthode:    public Shape() : Constructeur
+                public void add() : Ajouter la forme au dessin
+                public void init(int x0, int y0, int xLength, int yLength) : Initialiser la forme (dimension)
                 
                 // GETTER & SETTER
                 public void setChar(char c);
@@ -30,26 +29,26 @@ Classe Shape:
                 public int getXLength();
                 public int getYLength();
 
-Classe SRectangle extends Shape
-Classe SSquare extends Shape
-Classe SLine extends Shape
-Classe SCircle extends Shape
-Classe SChar extends Shape
-Classe SText extends Shape
+Classe SRectangle extends Shape : Dessine un rectangle
+Classe SSquare extends Shape : Dessine un carré
+Classe SLine extends Shape : Dessine une ligne
+Classe SCircle extends Shape : Dessine un cercle
+Classe SChar extends Shape : Dessine un caractère
+Classe SText extends Shape : Dessine un texte
 
 
 =================
-     DESSIN
+    LE DESSIN
 =================
 
 Classe Draw:
-    Variables:  private int x, y; // Taille de notre dessin
-                private Char[][] myDraw; // Tableau de taille (X x Y)
-                public static List<Shape> list = new ArrayList<Shape>(); // Enregistre toute les formes créées
+    Variables:  private int x, y : Taille de notre dessin
+                private Char[][] myDraw : Tableau de taille (X x Y) qui contient toutes les formes
+                public static List<Shape> list = new ArrayList<Shape>() : Enregistre toute les formes du dessin
 
-    Méthodes:   public Draw(int x, int y); // Constructeur
-                public void add(Shape s); // Ajouter une forme sur la surface du dessin
-                public void remove(Shape s); // Supprime une forme sur le dessin
+    Méthodes:   public Draw(int x, int y) : Constructeur
+                public void add(Shape s) : Ajouter une forme sur la surface du dessin
+                public void remove(Shape s) : Supprime une forme sur le dessin
                 public void brasser();
                 public void renverser();
-                public void print(); // Affiche le dessin dans la console
+                public void print() : Affiche le dessin dans la console
