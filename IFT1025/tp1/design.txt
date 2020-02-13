@@ -30,7 +30,7 @@ Classe Shape:
                 public int getYLength();
 
 Classe SRectangle extends Shape : Dessine un rectangle
-Classe SSquare extends Shape : Dessine un carré
+Classe SSquare extends SRectangle : Dessine un carré
 Classe SLine extends Shape : Dessine une ligne
 Classe SCircle extends Shape : Dessine un cercle
 Classe SChar extends Shape : Dessine un caractère
