@@ -4,7 +4,7 @@
 */
 
 Classe Main:
-    Variables:  public static Draw myDraw : Notre objet dessin initialisé lors de la commande 'init'
+    Variables:  public static Surface myDraw : Notre objet dessin initialisé lors de la commande 'init'
     Méthodes:   public static void main(String[] args) : Permet de lire les entrées dans la console (Scanner)
                 public static void initCommand(String[] args) : Initialise toutes les commandes pour dessiner
 
@@ -41,12 +41,12 @@ Classe SText extends Shape : Dessine un texte
     LE DESSIN
 =================
 
-Classe Draw:
+Classe Surface:
     Variables:  private int x, y : Taille de notre dessin
                 private Char[][] myDraw : Tableau de taille (X x Y) qui contient toutes les formes
                 public static List<Shape> list = new ArrayList<Shape>() : Enregistre toute les formes du dessin
 
-    Méthodes:   public Draw(int x, int y) : Constructeur
+    Méthodes:   public Surface(int x, int y) : Constructeur
                 public void add(Shape s) : Ajouter une forme sur la surface du dessin
                 public void remove(Shape s) : Supprime une forme sur le dessin
                 public void brasser();
