@@ -5,7 +5,7 @@ import fr.Tp1;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class Forme
+public abstract class Forme
 {
     private int x0, y0, x1, y1, xLength, yLength;
     private char[][] shape;
