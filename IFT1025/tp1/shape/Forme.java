@@ -18,11 +18,11 @@ public abstract class Forme
     {
         this.x0 = x0;
         this.y0 = y0;
-        this.x1 =  x1;
-        this.y1  = y1;
+        this.x1 = x1;
+        this.y1 = y1;
 
-        this.xLength = (x1-x0+1) > 0 ? (x1-x0+1) : -(x1-x0-1);
-        this.yLength = (y1-y0+1) > 0 ? (y1-y0+1) : -(y1-y0-1);
+        this.xLength = x1;
+        this.yLength = y1;
 
         this.shape = new char[yLength][xLength];
         this.c = '#';
@@ -30,6 +30,16 @@ public abstract class Forme
     }
 
     abstract void init();
+
+    public void setXLength(int x)
+    {
+        this.xLength = x;
+    }
+
+    public void setYLength(int y)
+    {
+        this.yLength = y;
+    }
 
     public void setDiff(int i)
     {
@@ -88,7 +98,17 @@ public abstract class Forme
 
     public void setY0(int y0)
     {
-        this.y0   = y0;
+        this.y0 = y0;
+    }
+
+    public void setX1(int x1)
+    {
+        this.x1 = x1;
+    }
+
+    public void setY1(int y1)
+    {
+        this.y1 = y1;
     }
 
     public void add()
