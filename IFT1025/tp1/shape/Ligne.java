@@ -9,6 +9,17 @@ public class Ligne extends Forme
     public Ligne(int xx0, int yy0, int xx1, int yy1)
     {
         super(xx0, yy0, xx1, yy1);
+
+        int xLength = (xx1-xx0+1) > 0 ? (xx1-xx0+1) : -(xx1-xx0-1);
+        int yLength = (yy1-yy0+1) > 0 ? (yy1-yy0+1) : -(yy1-yy0-1);
+        this.setXLength(xLength);
+        this.setYLength(yLength);
+
+        if(xx0 == 0) this.setXLength(xLength-1);
+        if(yy0  == 0) this.setYLength(yLength-1);
+
+        this.setShape(new char[this.getyLength()][this.getxLength()]);
+
         this.init();
     }
 
