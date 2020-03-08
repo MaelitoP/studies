@@ -57,7 +57,7 @@ public class Ligne extends Forme
         {
             if(xor(this.getY0() > this.getY1(), this.getX0() > this.getX1()))
             {
-                int i = deltX;
+                int i = deltY;
                 int w = 0;
                 o = ((float)deltX / (float)deltY);
                 while(i >= 0)
