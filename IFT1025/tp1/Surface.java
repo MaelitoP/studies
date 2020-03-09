@@ -1,12 +1,14 @@
+package fr;
+
 import fr.shape.Forme;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Surface
 {
     private int x, y;
     private char[][] myDraw;
+    private Set<Forme> list = new HashSet<Forme>();
 
     public Surface(int x, int y)
     {
@@ -31,7 +33,8 @@ public class Surface
             for(int j = 0; j < s.getxLength(); j++)
             {
                 if(arr[v][w] != '\u0000'){
-                    this.myDraw[i+y0][j+x0] = s.getChar();
+                    if(((i+y0) < this.y) && ((j+x0) < this.x))
+                        this.myDraw[i+y0][j+x0] = s.getChar();
 
                 }
                 w++;
@@ -40,22 +43,20 @@ public class Surface
             v++;
             if(v == s.getyLength()) v = 0;
         }
+        this.list.add(s);
     }
 
     public void brasser()
     {
-        List<Forme> list = new ArrayList<>();
-
-        //Erase current draw
-        for(int v = 0; v < this.y; v++)
-            for(int w = 0; w < this.x; w++)
-                this.myDraw[v][w] = '\u0000';
+        Set<Forme> list1 = this.list;
+        this.list = new HashSet<>();
+        this.erase(); //Erase current draw
 
         //  Add new draw
-        for(Forme f : Forme.list)
+        for(Forme f : list1)
         {
-            int nbrAxes = (int)(Math.random() * ((1 - 3) + 1)) + 3;
-
+            Random r = new Random();
+            int nbrAxes = r.nextInt(3-1) + 1;
             switch (nbrAxes)
             {
                 case 1: // X
@@ -70,9 +71,7 @@ public class Surface
                     break;
             }
             this.add(f);
-            list.add(f);
         }
-        Forme.list = list;
     }
 
     private int getRandomOne()
@@ -81,9 +80,43 @@ public class Surface
         return i == 2 ? 1 : -1;
     }
 
-
     public void renverser()
-    {}
+    {
+        int y0, y1;
+        Set<Forme> list1 = this.list;
+        this.list = new HashSet<>();
+
+        this.erase(); //Erase current draw
+        for(Forme f : list1)
+        {
+            if(f.isReverse())
+            {
+                y0 = f.getY0()-(f.getY1()/2);
+                y1 = f.getY1()/2;
+                f.setY0(y0);
+                f.setY1(y1);
+                f.setReverse(false);
+            }
+            else
+            {
+                y0 = f.getY0()+f.getY1();
+                y1 = f.getY1()*2;
+                f.setY0(y0);
+                f.setY1(y1);
+                f.setReverse(true);
+            }
+
+            f.init();
+            this.add(f);
+        }
+    }
+
+    public void erase()
+    {
+        for(int v = 0; v < this.y; v++)
+            for(int w = 0; w < this.x; w++)
+                this.myDraw[v][w] = '\u0000';
+    }
 
     public void print()
     {
