@@ -1,8 +1,8 @@
-import fr.shape.Carre;
-import fr.shape.Cercle;
-import fr.shape.Ligne;
-import fr.shape.Rectangle;
+package fr;
 
+import fr.shape.*;
+
+import java.util.Random;
 import java.util.Scanner;
 
 public class Tp1
@@ -24,7 +24,7 @@ public class Tp1
 
                 if(args.length == 5)
                 {
-                    if(!(isInteger(args[2]) && isInteger(args[3]) && isInteger(args[4])))
+                    if(!(isInteger(args[2]) && isInteger(args[3])))
                         print("Erreur d'argument! 'x0 y0 rayon' doivent êtres des entiers positifs.");
                     else
                     {
@@ -48,6 +48,28 @@ public class Tp1
                                     currentChar = '\u0000';
                                 }
                                 sSquare.add();
+                                break;
+
+                            case "caractere":
+                                Caractere sChar = new Caractere(Integer.parseInt(args[2]), Integer.parseInt(args[3]), args[4].charAt(0));
+                                if(!(currentChar == '\u0000'))
+                                {
+                                    sChar.setChar(currentChar);
+                                    currentChar = '\u0000';
+                                }
+                                //sChar.add();
+                                print(sChar.toString());
+                                break;
+
+                            case "texte":
+                                Texte sText = new Texte(Integer.parseInt(args[2]), Integer.parseInt(args[3]), args[4]);
+                                if(!(currentChar == '\u0000'))
+                                {
+                                    sText.setChar(currentChar);
+                                    currentChar = '\u0000';
+                                }
+                                print(sText.toString());
+                                //sText.add();
                                 break;
 
                             default:
@@ -85,12 +107,6 @@ public class Tp1
                                     sLine.add();
                                     break;
 
-                                case "caractere":
-                                    break;
-
-                                case "texte":
-                                    break;
-
                                 default:
                                     print("Erreur! Forme disponible: 'rectangle, carre, ligne, cercle, caractere, texte'.");
                                     break;
@@ -124,9 +140,11 @@ public class Tp1
                 break;
 
             case "renverser":
+                myDraw.renverser();
                 break;
 
             case "brasser":
+                myDraw.brasser();
                 break;
 
             default:
