@@ -10,9 +10,8 @@ public abstract class Forme
     private int x0, y0, x1, y1, xLength, yLength;
     private char[][] shape;
     private char c;
-    private int diff;
-
-    public static List<Forme> list = new ArrayList<Forme>();
+    private int diff, diffX, diffY;
+    private boolean isReverse;
 
     public Forme(int x0, int y0, int x1, int y1)
     {
@@ -25,11 +24,25 @@ public abstract class Forme
         this.yLength = y1;
 
         this.shape = new char[yLength][xLength];
+        this.isReverse = false;
         this.c = '#';
+
         this.diff = 0;
+        this.diffX = 0;
+        this.diffY = 0;
     }
 
-    abstract void init();
+    public abstract void init();
+
+    public boolean isReverse()
+    {
+        return this.isReverse;
+    }
+
+    public void setReverse(boolean b)
+    {
+        this.isReverse = b;
+    }
 
     public void setXLength(int x)
     {
@@ -114,12 +127,6 @@ public abstract class Forme
     public void add()
     {
         Tp1.getDraw().add(this);
-        Forme.list.add(this);
-    }
-
-    public void remove()
-    {
-        Forme.list.remove(this);
     }
 
     public void setChar(char c)
@@ -130,6 +137,26 @@ public abstract class Forme
     public char getChar()
     {
         return this.c;
+    }
+
+    public int getDiffX()
+    {
+        return this.diffX;
+    }
+
+    public void setDiffX(int diff)
+    {
+        this.diffX = diff;
+    }
+
+    public int getDiffY()
+    {
+        return this.diffY;
+    }
+
+    public void setDiffY(int diff)
+    {
+        this.diffY = diff;
     }
 
     @Override
