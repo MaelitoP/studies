@@ -89,8 +89,7 @@ public class Main
                 // Word
                 String word = s.next(wordPattern);
                 if(dictionary.contains(word.toLowerCase())) text.append(word);
-                else
-                {
+                else {
                     String correctedWord = "[" + word + " => " + find(word.toLowerCase()) + "]"; // Correction pattern
                     text.append(correctedWord);
                 }
@@ -102,19 +101,16 @@ public class Main
 
             System.out.println(text.toString());
             s.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     *
      * @param incorrectWord
      * @return string with all possibilities for the correct word
      */
-    public static String find(String incorrectWord)
-    {
+    public static String find(String incorrectWord) {
         String correction = "";
         List<String> corrections = new ArrayList<>();
 
@@ -140,18 +136,15 @@ public class Main
             if(i == corrections.size()-1) correction += corrections.get(i);
             else correction += corrections.get(i) + ",";
         }
-
         return correction;
     }
 
     public static List<String> removeDuplicate(List<String> input) {
         List<String> list = input;
-        for (int i = 0; i < input.size(); i++) {
-            for (int j = 1; j < input.size(); j++) {
+        for (int i = 0; i < input.size(); i++)
+            for (int j = 1; j < input.size(); j++)
                 if (input.get(i).equals(input.get(j)) && i != j)
                     list.remove(i);
-            }
-        }
         return list;
     }
 }
