@@ -119,32 +119,24 @@ public class Main
             for (String key : wordsSet.keySet())
                 for (String listItem : wordsSet.get(key))
                     if (incorrectWord.equalsIgnoreCase(listItem))
-                        corrections.add(key);
+                        if(corrections.contains(key))
+                            corrections.add(key);
 
         //Plus letter
-        for(int i = 0; i < incorrectWord.length(); i++){
+        for(int i = 0; i < incorrectWord.length(); i++) {
             StringBuilder sb = new StringBuilder(incorrectWord);
             sb.deleteCharAt(i);
             if(dictionary.contains(sb.toString().toLowerCase()))
-                corrections.add(sb.toString().toLowerCase());
+                if(!corrections.contains(sb.toString().toLowerCase()))
+                    corrections.add(sb.toString().toLowerCase());
         }
 
         //removeDuplicate(corrections);
         if(corrections.size() == 0) correction = "(?)";
-        for(int i = 0; i < corrections.size(); i++)
-        {
+        for(int i = 0; i < corrections.size(); i++) {
             if(i == corrections.size()-1) correction += corrections.get(i);
             else correction += corrections.get(i) + ",";
         }
         return correction;
-    }
-
-    public static List<String> removeDuplicate(List<String> input) {
-        List<String> list = input;
-        for (int i = 0; i < input.size(); i++)
-            for (int j = 1; j < input.size(); j++)
-                if (input.get(i).equals(input.get(j)) && i != j)
-                    list.remove(i);
-        return list;
     }
 }
