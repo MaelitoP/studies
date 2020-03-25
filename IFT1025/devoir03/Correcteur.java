@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
  */
 public class Main
 {
-    static HashSet<String>              dictionary  = new HashSet<>();
-    static HashMap<String, Set<String>> wordsSet    = new HashMap<>();
+    static HashSet<String> dictionary  = new HashSet<>();
+    static HashMap<String, Set<String>> wordsSet = new HashMap<>();
     static String fileName;
 
     public static void main(String[] args)
@@ -33,7 +33,8 @@ public class Main
      * Init the dictionary file & words set of potential typing error.
      * @param dict file name of dictionary
      */
-    public static void init(String dict) {
+    public static void init(String dict)
+    {
         // Init the dictionary
         try {
             FileReader fileReader = new FileReader(dict);
@@ -57,7 +58,8 @@ public class Main
             StringBuilder word;
             int w = 0;
 
-            while(w < key.length()) {
+            while(w < key.length())
+            {
                 word = new StringBuilder();
                 for(int i = 0; i < key.length(); i++)
                     if(w != i) word.append(key.charAt(i));
@@ -72,7 +74,8 @@ public class Main
      * Verify if a word is correct in the text & replace
      * by suggestions of potentially correct word if isn't.
      */
-    public static void check() {
+    public static void check()
+    {
         StringBuilder text = new StringBuilder();
         Pattern wordPattern = Pattern.compile("[a-zA-Z\\u00C0-\\u017F]+");
         Pattern patternSeparateur = Pattern.compile("[^a-zA-Z\\u00C0-\\u017F]+");
@@ -110,12 +113,14 @@ public class Main
      * @param incorrectWord
      * @return string with all possibilities for the correct word
      */
-    public static String find(String incorrectWord) {
+    public static String find(String incorrectWord)
+    {
         String correction = "";
         List<String> corrections = new ArrayList<>();
 
         //TODO find the correct word to repelace
-        if(wordsSet.values().stream().anyMatch(list -> list.contains(incorrectWord))) {
+        if(wordsSet.values().stream().anyMatch(list -> list.contains(incorrectWord)))
+        {
             for (String key : wordsSet.keySet()) {
                 for (String listItem : wordsSet.get(key)) {
                     if (incorrectWord.equalsIgnoreCase(listItem)) {
@@ -125,10 +130,13 @@ public class Main
             }
         }
 
-        for(int i = 0; i < corrections.size(); i++) {
+        for(int i = 0; i < corrections.size(); i++)
+        {
+            if(corrections.size() == 0) correction = "(?)";
             if(i == corrections.size()-1) correction += corrections.get(i);
             else correction += corrections.get(i) + ",";
         }
+
         return correction;
     }
 }
