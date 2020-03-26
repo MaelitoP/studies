@@ -11,14 +11,12 @@ import java.util.regex.Pattern;
  * @version 0.1
  * @author Maël LE PETIT
  */
-public class Main
-{
+public class Main {
     static HashSet<String> dictionary  = new HashSet<>();
     static HashMap<String, Set<String>> wordsSet = new HashMap<>();
     static String fileName;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         if (args.length != 2) {
             System.out.println("Attention: 2 arguments sont attendus");
             System.exit(-1);
@@ -33,23 +31,18 @@ public class Main
      * Init the dictionary file & words set of potential typing error.
      * @param dict file name of dictionary
      */
-    public static void init(String dict)
-    {
+    public static void init(String dict) {
         // Init the dictionary
         try {
             FileReader fileReader = new FileReader(dict);
             BufferedReader br = new BufferedReader(fileReader);
-
             String line;
 
             while((line = br.readLine()) != null) {
                 dictionary.add(line);
             }
-
             br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace(); }
 
         // Setup potential typing error of word (from dictionary)
         for(String key : dictionary)
@@ -74,8 +67,7 @@ public class Main
      * Verify if a word is correct in the text & replace
      * by suggestions of potentially correct word if isn't.
      */
-    public static void check()
-    {
+    public static void check() {
         StringBuilder text = new StringBuilder();
         Pattern wordPattern = Pattern.compile("[a-zA-Z\\u00C0-\\u017F]+");
         Pattern patternSeparateur = Pattern.compile("[^a-zA-Z\\u00C0-\\u017F]+");
@@ -98,12 +90,10 @@ public class Main
                 String sep = s.next(patternSeparateur);
                 text.append(sep);
             }
-
+            //Print the correction of text
             System.out.println(text.toString());
             s.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace(); }
     }
 
     /**
@@ -119,19 +109,24 @@ public class Main
             for (String key : wordsSet.keySet())
                 for (String listItem : wordsSet.get(key))
                     if (incorrectWord.equalsIgnoreCase(listItem))
-                        if(corrections.contains(key))
+                        if(!corrections.contains(key))
                             corrections.add(key);
 
-        //Plus letter
+        //Plus & hidden letter
         for(int i = 0; i < incorrectWord.length(); i++) {
             StringBuilder sb = new StringBuilder(incorrectWord);
             sb.deleteCharAt(i);
             if(dictionary.contains(sb.toString().toLowerCase()))
                 if(!corrections.contains(sb.toString().toLowerCase()))
                     corrections.add(sb.toString().toLowerCase());
+
+            for (String key : wordsSet.keySet())
+                for (String listItem : wordsSet.get(key))
+                    if (sb.toString().equalsIgnoreCase(listItem))
+                        if(!corrections.contains(key))
+                            corrections.add(key);
         }
 
-        //removeDuplicate(corrections);
         if(corrections.size() == 0) correction = "(?)";
         for(int i = 0; i < corrections.size(); i++) {
             if(i == corrections.size()-1) correction += corrections.get(i);
